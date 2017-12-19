@@ -11,14 +11,14 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class ScrInstructions implements Screen {
 
-        private Texture img;
+        private Texture txBackground;
         private GamCosineLine game;
         private OrthographicCamera cam;
         private Viewport port;
 
         public ScrInstructions(GamCosineLine game) {
             this.game = game;
-            img = new Texture("badlogic.jpg");
+            txBackground = new Texture("ScrInstructions.png");
             cam = new OrthographicCamera();
             port = new FitViewport(GamCosineLine.V_WIDTH, GamCosineLine.V_HEIGHT, cam);
             cam.position.set(port.getWorldWidth() / 2, port.getWorldHeight() / 2, 0);
@@ -32,10 +32,12 @@ public class ScrInstructions implements Screen {
         public void render(float delta) {
             cam.update();
             
+            if (Gdx.input.justTouched()) game.setScreen(new ScrMenu(game));
+            
             Gdx.gl.glClearColor(0, 0, 1, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             game.getBatch().begin();
-            game.getBatch().draw(img, 0, 0);
+            game.getBatch().draw(txBackground, 0, 0);
             game.getBatch().end();
         }
 
@@ -58,6 +60,6 @@ public class ScrInstructions implements Screen {
 
         @Override
         public void dispose() {
-            img.dispose();
+            txBackground.dispose();
         }
     }
