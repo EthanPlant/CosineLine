@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class GamCosineLine extends Game {
 
     private SpriteBatch batch;
+    public static int V_WIDTH = 1080;
+    public static int V_HEIGHT = 1920;
 
     @Override
     public void create() {
