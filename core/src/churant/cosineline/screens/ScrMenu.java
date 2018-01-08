@@ -18,7 +18,7 @@ public class ScrMenu implements Screen {
 
     public ScrMenu(GamCosineLine game) {
         this.game = game;
-        img = new Texture("badlogic.jpg");
+        img = new Texture("ScrMenu.png");
         cam = new OrthographicCamera();
         port = new FitViewport(GamCosineLine.V_WIDTH, GamCosineLine.V_HEIGHT, cam);
         cam.position.set(port.getWorldWidth() / 2, port.getWorldHeight() / 2, 0);
