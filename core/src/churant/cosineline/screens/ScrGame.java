@@ -1,4 +1,6 @@
 package churant.cosineline.screens;
+//182, 182, 182
+//53, 0, 106
 
 import churant.cosineline.GamCosineLine;
 import com.badlogic.gdx.Screen;
@@ -18,7 +20,7 @@ public class ScrGame implements Screen {
 
     public ScrGame(GamCosineLine game) {
         this.game = game;
-        img = new Texture("badlogic.jpg");
+        img = new Texture("ScrGame.png");
         cam = new OrthographicCamera();
         port = new FitViewport(GamCosineLine.V_WIDTH, GamCosineLine.V_HEIGHT, cam);
         cam.position.set(port.getWorldWidth() / 2, port.getWorldHeight() / 2, 0);
