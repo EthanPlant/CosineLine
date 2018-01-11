@@ -33,11 +33,11 @@ public class ScrMenu implements Screen {
         sprPlayBtn.setRotation(270);
         sprPlayBtn.setPosition(port.getWorldWidth() / 2 - sprPlayBtn.getWidth() / 2, 100);
         
-        sprInstructionsBtn = new Sprite(new Texture("Instructions.png"));
-        sprInstructionsBtn.setPosition(port.getWorldWidth() / - sprInstructionsBtn.getWidth() / 2, 700);
+        sprInstructionsBtn = new Sprite(new Texture("InstructionsBtn.png"));
+        sprInstructionsBtn.setPosition(50, 800);
         
         sprStatsBtn = new Sprite(new Texture("StatsBtn.png"));
-        sprStatsBtn.setPosition(500, 500);
+        sprStatsBtn.setPosition(50, 1000);
     }
 
     @Override
