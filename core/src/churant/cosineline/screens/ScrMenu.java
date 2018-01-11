@@ -20,6 +20,7 @@ public class ScrMenu implements Screen {
 
     private Sprite sprPlayBtn;
     private Sprite sprInstructionsBtn;
+    private Sprite sprStatsBtn;
     
     public ScrMenu(GamCosineLine game) {
         this.game = game;
@@ -34,6 +35,9 @@ public class ScrMenu implements Screen {
         
         sprInstructionsBtn = new Sprite(new Texture("Instructions.png"));
         sprInstructionsBtn.setPosition(port.getWorldWidth() / - sprInstructionsBtn.getWidth() / 2, 700);
+        
+        sprStatsBtn = new Sprite(new Texture("StatsBtn.png"));
+        sprStatsBtn.setPosition(500, 500);
     }
 
     @Override
@@ -47,8 +51,11 @@ public class ScrMenu implements Screen {
            if (sprPlayBtn.getBoundingRectangle().contains(vInputPos.x, vInputPos.y)) {
                game.setScreen(new ScrGame(game));
            }
-           if (sprPlayBtn.getBoundingRectangle().contains(vInputPos.x, vInputPos.y)) {
+           if (sprInstructionsBtn.getBoundingRectangle().contains(vInputPos.x, vInputPos.y)) {
                game.setScreen(new ScrInstructions(game));
+           }
+           if (sprStatsBtn.getBoundingRectangle().contains(vInputPos.x, vInputPos.y)) {
+               game.setScreen(new ScrStats(game));
            }
         }
     }
@@ -67,6 +74,7 @@ public class ScrMenu implements Screen {
         game.getBatch().draw(img, 0, 0);
         sprPlayBtn.draw(game.getBatch());
         sprInstructionsBtn.draw(game.getBatch());
+        sprStatsBtn.draw(game.getBatch());
         game.getBatch().end();
     }
 

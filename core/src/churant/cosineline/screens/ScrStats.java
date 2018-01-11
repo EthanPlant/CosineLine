@@ -10,16 +10,17 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class ScrStats implements Screen {
-    
 
     private Texture img;
     private GamCosineLine game;
     private OrthographicCamera cam;
     private Viewport port;
+    private Texture txBackground;
 
     public ScrStats(GamCosineLine game) {
         this.game = game;
         cam = new OrthographicCamera();
+        txBackground = new Texture("ScrInstructions.png");
         port = new FitViewport(GamCosineLine.V_WIDTH, GamCosineLine.V_HEIGHT, cam);
         cam.position.set(port.getWorldWidth() / 2, port.getWorldHeight() / 2, 0);
     }
@@ -31,11 +32,11 @@ public class ScrStats implements Screen {
     @Override
     public void render(float delta) {
         cam.update();
-        
+
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.getBatch().begin();
-        game.getBatch().draw(img, 0, 0);
+        game.getBatch().draw(txBackground, 0, 0);
         game.getBatch().end();
     }
 
@@ -61,4 +62,3 @@ public class ScrStats implements Screen {
         img.dispose();
     }
 }
-
