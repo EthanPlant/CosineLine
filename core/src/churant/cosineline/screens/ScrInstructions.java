@@ -3,6 +3,7 @@ package churant.cosineline.screens;
 import churant.cosineline.GamCosineLine;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -28,11 +29,16 @@ public class ScrInstructions implements Screen {
         public void show() {
         }
 
+    public void handleInput() {
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+            game.setScreen(new ScrMenu(game));   
+        }
+    }
+
         @Override
         public void render(float delta) {
+            handleInput();
             cam.update();
-            
-            if (Gdx.input.justTouched()) game.setScreen(new ScrMenu(game));
             
             Gdx.gl.glClearColor(0, 0, 1, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

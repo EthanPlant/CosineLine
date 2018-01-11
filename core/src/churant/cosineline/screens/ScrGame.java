@@ -39,13 +39,14 @@ public class ScrGame implements Screen {
 
     @Override
     public void render(float delta) {
+        handleInput();
         cam.update();
-
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.getBatch().begin();
         game.getBatch().draw(img, 0, 0);
         game.getBatch().end();
+        
     }
 
     @Override
