@@ -1,6 +1,6 @@
 package churant.cosineline;
 
-import churant.cosineline.screens.scratch.ScrPlayerScratch;
+import churant.cosineline.screens.ScrMenu;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -13,7 +13,7 @@ public class GamCosineLine extends Game {
     @Override
     public void create() {
         batch = new SpriteBatch();
-        setScreen(new ScrPlayerScratch(this));
+        setScreen(new ScrMenu(this));
     }
 
     public SpriteBatch getBatch() {
