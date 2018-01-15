@@ -12,21 +12,21 @@ public class Player extends Sprite {
         setRegion(new Texture("SprMain.png"));
         setSize(100, 100);
         setPosition(fX, fY);
-        fDx = 10;
+        fDx = 15;
         fDy = 0;
     }
     
     public void update() {
         if (this.getX() <= 110) {
-            fDx += 0.5;
+            fDx += 1;
         }
         if (this.getX() >= 855) {
-            fDx -= 0.5;
+            fDx -= 1;
         }
         setPosition(this.getX() + fDx, this.getY() + fDy);
     }
     
     public void setDeltaY(float fValue) {
-        fDy += fValue;
+        fDy = fValue;
     }
 }

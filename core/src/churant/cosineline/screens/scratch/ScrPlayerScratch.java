@@ -40,7 +40,7 @@ public class ScrPlayerScratch implements Screen {
     
     public void handleInput() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            plaPlayer.setDeltaY(10);
+            plaPlayer.setDeltaY(15);
         }
         if (!Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             plaPlayer.setDeltaY(0);
