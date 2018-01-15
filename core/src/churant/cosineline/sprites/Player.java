@@ -1,6 +1,5 @@
 package churant.cosineline.sprites;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
@@ -18,10 +17,10 @@ public class Player extends Sprite {
     }
     
     public void update() {
-        if (this.getX() <= 100) {
+        if (this.getX() <= 110) {
             fDx += 0.5;
         }
-        if (this.getX() >= 800) {
+        if (this.getX() >= 855) {
             fDx -= 0.5;
         }
         setPosition(this.getX() + fDx, this.getY() + fDy);

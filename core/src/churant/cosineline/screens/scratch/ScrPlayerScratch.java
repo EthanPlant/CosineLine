@@ -27,7 +27,6 @@ public class ScrPlayerScratch implements Screen {
         
         cam = new OrthographicCamera();
         port = new FitViewport(GamCosineLine.V_WIDTH, GamCosineLine.V_HEIGHT, cam);
-        cam.position.set(port.getWorldWidth() / 2, port.getWorldHeight() / 2, 0);
         
         plaPlayer = new Player(port.getWorldWidth() / 2, 100);
         
