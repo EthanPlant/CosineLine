@@ -17,7 +17,7 @@ public class Player extends Sprite {
     }
     
     public void update() {
-        if (this.getX() <= 110) {
+        if (this.getX() <= 120) {
             fDx += 1;
         }
         if (this.getX() >= 855) {
