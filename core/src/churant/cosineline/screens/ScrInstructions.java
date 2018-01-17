@@ -31,7 +31,7 @@ public class ScrInstructions implements Screen {
 
     public void handleInput() {
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-            game.updateState(0));   
+            game.updateState(0);   
         }
     }
 
