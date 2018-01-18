@@ -25,6 +25,7 @@ public class ScrGame implements Screen {
     private Viewport port;
     
     private Player plaPlayer;
+    private float fSpeed;
     
     private Array<Obstacle> obstacles;
     private float fObstacleY, fObstacleTimer;
@@ -37,6 +38,7 @@ public class ScrGame implements Screen {
         cam.position.set(port.getWorldWidth() / 2, port.getWorldHeight() / 2, 0);
         
         plaPlayer = new Player(port.getWorldWidth() / 2, 100);
+        fSpeed = 5;
         
         obstacles = new Array<Obstacle>();
         fObstacleY = 300;
@@ -47,14 +49,23 @@ public class ScrGame implements Screen {
     }
     
     public void handleInput() {
+        if (Gdx.input.isKeyPressed(Input.Keys.Z)) {
+            plaPlayer.setMaxSpeed(20);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.X)) {
+            plaPlayer.setMaxSpeed(40);
+        }
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             game.updateState(0);   
         }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            plaPlayer.setDeltaY(20);
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            plaPlayer.setDeltaY(fSpeed);
         }
         if (!Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            plaPlayer.setDeltaY(0);
+            plaPlayer.setDeltaY(-1);
+        }
+        if (!Gdx.input.isKeyPressed(Input.Keys.Z) && !Gdx.input.isKeyPressed(Input.Keys.X)) {
+            plaPlayer.setMaxSpeed(30);
         }
     }
     
