@@ -13,14 +13,14 @@ public class Player extends Sprite {
         setRegion(new Texture("SprMain.png"));
         setSize(100, 100);
         setPosition(fX, fY);
-        fDx = 15;
+        fDx = 20;
         fDy = 0;
         fRotation = 0;
         isRotated = false;
     }
 
     public void update() {
-        if (this.getX() <= 120) {
+        if (this.getX() <= 200) {
             fDx += 1;
             if (isRotated == false) {
                 fRotation -= 1;
@@ -29,7 +29,7 @@ public class Player extends Sprite {
                 fRotation -= 2;
             }
         }
-        if (this.getX() >= 855) {
+        if (this.getX() >= 780) {
             fDx -= 1;
             if (isRotated == false) {
                 fRotation += 1;

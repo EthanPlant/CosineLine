@@ -3,6 +3,8 @@ package churant.cosineline.screens;
 //53, 0, 106
 
 import churant.cosineline.GamCosineLine;
+import churant.cosineline.sprites.CircleObstacle;
+import churant.cosineline.sprites.Obstacle;
 import churant.cosineline.sprites.Player;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,6 +12,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -21,6 +25,9 @@ public class ScrGame implements Screen {
     private Viewport port;
     
     private Player plaPlayer;
+    
+    private Array<Obstacle> obstacles;
+    private float fObstacleY, fObstacleTimer;
 
     public ScrGame(GamCosineLine game) {
         this.game = game;
@@ -30,6 +37,9 @@ public class ScrGame implements Screen {
         cam.position.set(port.getWorldWidth() / 2, port.getWorldHeight() / 2, 0);
         
         plaPlayer = new Player(port.getWorldWidth() / 2, 100);
+        
+        obstacles = new Array<Obstacle>();
+        fObstacleY = 300;
     }
 
     @Override
@@ -41,16 +51,30 @@ public class ScrGame implements Screen {
             game.updateState(0);   
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            plaPlayer.setDeltaY(10);
+            plaPlayer.setDeltaY(20);
         }
         if (!Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             plaPlayer.setDeltaY(0);
+        }
+    }
+    
+    public void spawnObstacles(float delta) {
+        fObstacleTimer += delta;
+        if (fObstacleY < cam.position.y + 1500) {
+            if (fObstacleTimer >= 0.01) {
+                CircleObstacle obstacle = new CircleObstacle(MathUtils.random(10, 800), fObstacleY, 150, 150);
+                obstacles.add(obstacle);
+                fObstacleTimer = 0;
+                fObstacleY += 1000;
+            }
         }
     }
 
     @Override
     public void render(float delta) {
         handleInput();
+        
+        spawnObstacles(delta);
         
         plaPlayer.update();
         cam.position.set(port.getWorldWidth() / 2, plaPlayer.getY() + 900, 0);
@@ -64,6 +88,13 @@ public class ScrGame implements Screen {
         game.getBatch().begin();
         game.getBatch().draw(img, 0, cam.position.y - 960);
         plaPlayer.draw(game.getBatch());
+        for (Obstacle obstacle : obstacles) {
+            obstacle.draw(game.getBatch());
+            if (obstacle.getY() <= cam.position.y - 1500) {
+                obstacles.removeIndex(obstacles.indexOf(obstacle, true));
+                obstacles.shrink();
+            }
+        }
         game.getBatch().end();
         
     }
