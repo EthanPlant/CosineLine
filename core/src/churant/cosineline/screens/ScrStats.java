@@ -32,7 +32,7 @@ public class ScrStats implements Screen {
     
     public void handleInput() {
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-            game.setScreen(new ScrMenu(game));   
+            game.updateState(0);   
         }
     }
 

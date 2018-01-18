@@ -49,13 +49,13 @@ public class ScrMenu implements Screen {
            Vector3 vInputPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
            cam.unproject(vInputPos);
            if (sprPlayBtn.getBoundingRectangle().contains(vInputPos.x, vInputPos.y)) {
-               game.setScreen(new ScrGame(game));
+               game.updateState(1);
            }
            if (sprInstructionsBtn.getBoundingRectangle().contains(vInputPos.x, vInputPos.y)) {
-               game.setScreen(new ScrInstructions(game));
+               game.updateState(2);
            }
            if (sprStatsBtn.getBoundingRectangle().contains(vInputPos.x, vInputPos.y)) {
-               game.setScreen(new ScrStats(game));
+               game.updateState(3);
            }
         }
     }
