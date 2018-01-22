@@ -21,7 +21,6 @@ public class GamCosineLine extends Game {
     @Override
     public void create() {
         batch = new SpriteBatch();
-        scrGame = new ScrGame(this);
         scrMenu = new ScrMenu(this);
         scrInstructions = new ScrInstructions(this);
         scrStats = new ScrStats(this);
@@ -38,7 +37,7 @@ public class GamCosineLine extends Game {
                 setScreen(scrMenu);
                 break;
             case 1:
-                setScreen(scrGame);
+                setScreen(new ScrGame(this));
                 break;
             case 2:
                 setScreen(scrInstructions);

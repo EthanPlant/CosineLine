@@ -101,6 +101,9 @@ public class ScrGame implements Screen {
         plaPlayer.draw(game.getBatch());
         for (Obstacle obstacle : obstacles) {
             obstacle.draw(game.getBatch());
+            if (plaPlayer.getBoundingRectangle().contains(obstacle.getX(), obstacle.getY())) {
+                game.updateState(0);
+            }
             if (obstacle.getY() <= cam.position.y - 1500) {
                 obstacles.removeIndex(obstacles.indexOf(obstacle, true));
                 obstacles.shrink();

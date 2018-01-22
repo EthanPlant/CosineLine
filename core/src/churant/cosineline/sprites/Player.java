@@ -9,7 +9,7 @@ public class Player extends Sprite {
     private boolean isRotated;
 
     public Player(float fX, float fY) {
-        setBounds(0, 0, 200, 200);
+        setBounds(0, 0, 100, 100);
         setRegion(new Texture("SprMain.png"));
         setSize(100, 100);
         setPosition(fX, fY);
