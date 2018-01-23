@@ -4,6 +4,7 @@ package churant.cosineline.screens;
 
 import churant.cosineline.GamCosineLine;
 import churant.cosineline.sprites.CircleObstacle;
+import churant.cosineline.sprites.MovingObstacle;
 import churant.cosineline.sprites.Obstacle;
 import churant.cosineline.sprites.Player;
 import com.badlogic.gdx.Screen;
@@ -51,7 +52,7 @@ public class ScrGame implements Screen {
         fSpeed = 5;
 
         obstacles = new Array<Obstacle>();
-        fObstacleY = 300;
+        fObstacleY = 1000;
 
         font = new BitmapFont();
     }
@@ -85,7 +86,20 @@ public class ScrGame implements Screen {
         fObstacleTimer += delta;
         if (fObstacleY < cam.position.y + 1500) {
             if (fObstacleTimer >= 0.01) {
-                CircleObstacle obstacle = new CircleObstacle(MathUtils.random(10, 800), fObstacleY, 150, 150);
+                int nDecider = MathUtils.random(0, 1);
+                Obstacle obstacle;
+                switch(nDecider) {
+                    case 0:
+                        obstacle = new CircleObstacle(MathUtils.random(10, 800), fObstacleY, 150, 150);
+                        break;
+                    case 1:
+                        obstacle = new MovingObstacle(MathUtils.random(10, 400), fObstacleY, 450, 150);
+                        break;
+                    default:
+                        // Should never happen but compiler complains if this isn't here
+                        obstacle = null;
+                        break;
+                }
                 obstacles.add(obstacle);
                 fObstacleTimer = 0;
                 fObstacleY += 1000;
@@ -136,11 +150,12 @@ public class ScrGame implements Screen {
         game.getBatch().draw(txBg, 0, cam.position.y - 960);
         plaPlayer.draw(game.getBatch());
         for (Obstacle obstacle : obstacles) {
+            obstacle.update(delta);
             obstacle.draw(game.getBatch());
             if (plaPlayer.getBoundingRectangle().overlaps(obstacle.getBoundingRectangle())) {
                 game.updateState(0);
             }
-            if (obstacle.getY() <= cam.position.y - 1500) {
+            if (obstacle.getY() <= cam.position.y - 1200) {
                 obstacles.removeIndex(obstacles.indexOf(obstacle, true));
                 obstacles.shrink();
             }

@@ -9,4 +9,6 @@ public abstract class Obstacle extends Sprite {
         setSize(fLength, fWidth);
         setPosition(fX, fY);
     }
+
+    public void update(float delta) {}
 }
