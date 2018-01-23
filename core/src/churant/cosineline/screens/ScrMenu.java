@@ -29,7 +29,7 @@ public class ScrMenu implements Screen {
         port = new FitViewport(GamCosineLine.V_WIDTH, GamCosineLine.V_HEIGHT, cam);
         cam.position.set(port.getWorldWidth() / 2, port.getWorldHeight() / 2, 0);
         
-        sprPlayBtn = new Sprite(new Texture("sprMain.png"));
+        sprPlayBtn = new Sprite(new Texture("SprMain.png"));
         sprPlayBtn.setRotation(270);
         sprPlayBtn.setPosition(port.getWorldWidth() / 2 - sprPlayBtn.getWidth() / 2, 100);
         

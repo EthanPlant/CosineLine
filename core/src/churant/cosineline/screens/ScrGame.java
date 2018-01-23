@@ -20,22 +20,29 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class ScrGame implements Screen {
 
-    private Texture img;
+    private Texture txBg;
+
     private GamCosineLine game;
     private OrthographicCamera cam;
     private Viewport port;
+
     private Player plaPlayer;
     private float fSpeed;
+
     private Array<Obstacle> obstacles;
     private float fObstacleY, fObstacleTimer;
+
     private BitmapFont font;
     private int nScore;
     private float fScoreTime;
-    private String sScore;
+
+    private float fStreakTime;
+    private float fPrevY;
+    private int nStreaks;
 
     public ScrGame(GamCosineLine game) {
         this.game = game;
-        img = new Texture("ScrGame.png");
+        txBg = new Texture("ScrGame.png");
         cam = new OrthographicCamera();
         port = new FitViewport(GamCosineLine.V_WIDTH, GamCosineLine.V_HEIGHT, cam);
         cam.position.set(port.getWorldWidth() / 2, port.getWorldHeight() / 2, 0);
@@ -47,7 +54,6 @@ public class ScrGame implements Screen {
         fObstacleY = 300;
 
         font = new BitmapFont();
-        sScore = "0";
     }
 
     @Override
@@ -92,6 +98,22 @@ public class ScrGame implements Screen {
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             fScoreTime += delta;
         }
+
+        if (fStreakTime == 0) {
+            fPrevY = plaPlayer.getY();
+        }
+        fStreakTime += delta;
+        if (fStreakTime >= 0.5) {
+            if (fPrevY == plaPlayer.getY()) {
+                fStreakTime = 0;
+            } else {
+                if (fStreakTime >= 1) {
+                    nScore += 10;
+                    nStreaks++;
+                    fStreakTime = 0;
+                }
+            }
+        }
         handleInput();
 
         spawnObstacles(delta);
@@ -104,7 +126,6 @@ public class ScrGame implements Screen {
         if (fScoreTime >= 0.5) {
             nScore++;
             fScoreTime = 0;
-            sScore = Integer.toString(nScore);
         }
 
         Gdx.gl.glClearColor(1, 0, 0, 1);
@@ -112,7 +133,7 @@ public class ScrGame implements Screen {
 
         game.getBatch().setProjectionMatrix(cam.combined);
         game.getBatch().begin();
-        game.getBatch().draw(img, 0, cam.position.y - 960);
+        game.getBatch().draw(txBg, 0, cam.position.y - 960);
         plaPlayer.draw(game.getBatch());
         for (Obstacle obstacle : obstacles) {
             obstacle.draw(game.getBatch());
@@ -125,7 +146,9 @@ public class ScrGame implements Screen {
             }
         }
         font.getData().setScale(10);
-        font.draw(game.getBatch(), sScore, 100, cam.position.y + 900);
+        font.draw(game.getBatch(), Integer.toString(nScore), 100, cam.position.y + 900);
+        font.getData().setScale(5);
+        font.draw(game.getBatch(), "Streaks " + nStreaks, 100, cam.position.y + 750);
         game.getBatch().end();
 
     }
@@ -149,6 +172,5 @@ public class ScrGame implements Screen {
 
     @Override
     public void dispose() {
-        img.dispose();
     }
 }
