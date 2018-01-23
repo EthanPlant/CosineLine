@@ -12,6 +12,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -23,12 +24,14 @@ public class ScrGame implements Screen {
     private GamCosineLine game;
     private OrthographicCamera cam;
     private Viewport port;
-    
     private Player plaPlayer;
     private float fSpeed;
-    
     private Array<Obstacle> obstacles;
     private float fObstacleY, fObstacleTimer;
+    private BitmapFont font;
+    private int nScore;
+    private float fScoreTime;
+    private String sScore;
 
     public ScrGame(GamCosineLine game) {
         this.game = game;
@@ -36,18 +39,21 @@ public class ScrGame implements Screen {
         cam = new OrthographicCamera();
         port = new FitViewport(GamCosineLine.V_WIDTH, GamCosineLine.V_HEIGHT, cam);
         cam.position.set(port.getWorldWidth() / 2, port.getWorldHeight() / 2, 0);
-        
+
         plaPlayer = new Player(port.getWorldWidth() / 2, 100);
         fSpeed = 5;
-        
+
         obstacles = new Array<Obstacle>();
         fObstacleY = 300;
+
+        font = new BitmapFont();
+        sScore = "0";
     }
 
     @Override
     public void show() {
     }
-    
+
     public void handleInput() {
         if (Gdx.input.isKeyPressed(Input.Keys.Z)) {
             plaPlayer.setMaxSpeed(20);
@@ -56,7 +62,7 @@ public class ScrGame implements Screen {
             plaPlayer.setMaxSpeed(40);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-            game.updateState(0);   
+            game.updateState(0);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             plaPlayer.setDeltaY(fSpeed);
@@ -68,7 +74,7 @@ public class ScrGame implements Screen {
             plaPlayer.setMaxSpeed(30);
         }
     }
-    
+
     public void spawnObstacles(float delta) {
         fObstacleTimer += delta;
         if (fObstacleY < cam.position.y + 1500) {
@@ -83,25 +89,34 @@ public class ScrGame implements Screen {
 
     @Override
     public void render(float delta) {
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            fScoreTime += delta;
+        }
         handleInput();
-        
+
         spawnObstacles(delta);
-        
+
         plaPlayer.update();
         cam.position.set(port.getWorldWidth() / 2, plaPlayer.getY() + 900, 0);
-        
+
         cam.update();
-        
+
+        if (fScoreTime >= 0.5) {
+            nScore++;
+            fScoreTime = 0;
+            sScore = Integer.toString(nScore);
+        }
+
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        
+
         game.getBatch().setProjectionMatrix(cam.combined);
         game.getBatch().begin();
         game.getBatch().draw(img, 0, cam.position.y - 960);
         plaPlayer.draw(game.getBatch());
         for (Obstacle obstacle : obstacles) {
             obstacle.draw(game.getBatch());
-            if (plaPlayer.getBoundingRectangle().contains(obstacle.getX(), obstacle.getY())) {
+            if (plaPlayer.getBoundingRectangle().overlaps(obstacle.getBoundingRectangle())) {
                 game.updateState(0);
             }
             if (obstacle.getY() <= cam.position.y - 1500) {
@@ -109,8 +124,10 @@ public class ScrGame implements Screen {
                 obstacles.shrink();
             }
         }
+        font.getData().setScale(10);
+        font.draw(game.getBatch(), sScore, 100, cam.position.y + 900);
         game.getBatch().end();
-        
+
     }
 
     @Override
