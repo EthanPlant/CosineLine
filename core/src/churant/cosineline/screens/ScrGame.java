@@ -11,6 +11,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -40,6 +41,8 @@ public class ScrGame implements Screen {
     private float fStreakTime;
     private float fPrevY;
     private int nStreaks;
+    
+    private Music music;
 
     public ScrGame(GamCosineLine game) {
         this.game = game;
@@ -55,6 +58,10 @@ public class ScrGame implements Screen {
         fObstacleY = 1000;
 
         font = new BitmapFont();
+        
+        music = Gdx.audio.newMusic(Gdx.files.internal("bgm.mp3"));
+        music.setLooping(true);
+        music.play();
     }
 
     @Override
