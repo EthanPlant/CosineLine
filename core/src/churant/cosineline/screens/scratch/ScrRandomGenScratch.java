@@ -41,6 +41,10 @@ public class ScrRandomGenScratch implements Screen {
 
     @Override
     public void render(float delta) {
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+            game.updateState(0);
+        }
+        
         fObstacleTimer += delta;
         if (fObstacleTimer >= 0.01) {
             if (fObstacleY < cam.position.y + 1500) {

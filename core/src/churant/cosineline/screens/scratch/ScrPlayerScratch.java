@@ -45,6 +45,9 @@ public class ScrPlayerScratch implements Screen {
         if (!Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             plaPlayer.setDeltaY(0);
         }
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+            game.updateState(0);
+        }
     }
  
     @Override

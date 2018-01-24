@@ -3,7 +3,10 @@ package churant.cosineline;
 import churant.cosineline.screens.ScrGame;
 import churant.cosineline.screens.ScrInstructions;
 import churant.cosineline.screens.ScrMenu;
-import churant.cosineline.screens.ScrStats;
+import churant.cosineline.screens.ScrScratches;
+import churant.cosineline.screens.scratch.ScrButtonScratch;
+import churant.cosineline.screens.scratch.ScrPlayerScratch;
+import churant.cosineline.screens.scratch.ScrRandomGenScratch;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -13,17 +16,22 @@ public class GamCosineLine extends Game {
     public static int V_WIDTH = 1080;
     public static int V_HEIGHT = 1920;
     
-    private ScrGame scrGame;
     private ScrMenu scrMenu;
     private ScrInstructions scrInstructions;
-    private ScrStats scrStats;
+    private ScrScratches scrStats;
+    private ScrButtonScratch scrButtonScratch;
+    private ScrPlayerScratch scrPlayerScratch;
+    private ScrRandomGenScratch scrRandomScratch;
 
     @Override
     public void create() {
         batch = new SpriteBatch();
         scrMenu = new ScrMenu(this);
         scrInstructions = new ScrInstructions(this);
-        scrStats = new ScrStats(this);
+        scrStats = new ScrScratches(this);
+        scrButtonScratch = new ScrButtonScratch(this);
+        scrPlayerScratch =  new ScrPlayerScratch(this);
+        scrRandomScratch = new ScrRandomGenScratch(this);
         updateState(0);
     }
 
@@ -44,6 +52,15 @@ public class GamCosineLine extends Game {
                 break;
             case 3:
                 setScreen(scrStats);
+                break;
+            case 4:
+                setScreen(scrButtonScratch);
+                break;
+            case 5:
+                setScreen(scrPlayerScratch);
+                break;
+            case 6:
+                setScreen(scrRandomScratch);
                 break;
         }
     }

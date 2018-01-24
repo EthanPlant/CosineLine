@@ -2,6 +2,7 @@ package churant.cosineline.screens.scratch;
 
 import churant.cosineline.GamCosineLine;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -41,6 +42,10 @@ public class ScrButtonScratch implements Screen {
             if(sprTest.getBoundingRectangle().contains(vInputPos.x, vInputPos.y)) {
                 System.out.println("Button Hit");
             }
+        }
+        
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+            game.updateState(0);
         }
     }
 
