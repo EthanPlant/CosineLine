@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -43,6 +44,7 @@ public class ScrGame implements Screen {
     private int nStreaks;
     
     private Music music;
+    private Sound deathSound;
 
     public ScrGame(GamCosineLine game) {
         this.game = game;
@@ -62,6 +64,8 @@ public class ScrGame implements Screen {
         music = Gdx.audio.newMusic(Gdx.files.internal("bgm.mp3"));
         music.setLooping(true);
         music.play();
+        
+        deathSound = Gdx.audio.newSound(Gdx.files.internal("death sound.mp3"));
     }
 
     @Override
@@ -160,6 +164,8 @@ public class ScrGame implements Screen {
             obstacle.update(delta);
             obstacle.draw(game.getBatch());
             if (plaPlayer.getBoundingRectangle().overlaps(obstacle.getBoundingRectangle())) {
+                music.stop();
+                deathSound.play(1);
                 game.updateState(0);
             }
             if (obstacle.getY() <= cam.position.y - 1200) {

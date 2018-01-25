@@ -5,6 +5,8 @@ import churant.cosineline.screens.ScrInstructions;
 import churant.cosineline.screens.ScrMenu;
 import churant.cosineline.screens.ScrScratches;
 import churant.cosineline.screens.scratch.ScrButtonScratch;
+import churant.cosineline.screens.scratch.ScrCollisionScratch;
+import churant.cosineline.screens.scratch.ScrMusicScratch;
 import churant.cosineline.screens.scratch.ScrPlayerScratch;
 import churant.cosineline.screens.scratch.ScrRandomGenScratch;
 import com.badlogic.gdx.Game;
@@ -22,6 +24,8 @@ public class GamCosineLine extends Game {
     private ScrButtonScratch scrButtonScratch;
     private ScrPlayerScratch scrPlayerScratch;
     private ScrRandomGenScratch scrRandomScratch;
+    private ScrCollisionScratch scrCollisionScratch;
+    private ScrMusicScratch scrMusicScratch;
 
     @Override
     public void create() {
@@ -32,6 +36,8 @@ public class GamCosineLine extends Game {
         scrButtonScratch = new ScrButtonScratch(this);
         scrPlayerScratch =  new ScrPlayerScratch(this);
         scrRandomScratch = new ScrRandomGenScratch(this);
+        scrCollisionScratch = new ScrCollisionScratch(this);
+        scrMusicScratch = new ScrMusicScratch(this);
         updateState(0);
     }
 
@@ -61,6 +67,12 @@ public class GamCosineLine extends Game {
                 break;
             case 6:
                 setScreen(scrRandomScratch);
+                break;
+            case 7:
+                setScreen(scrCollisionScratch);
+                break;
+            case 8:
+                setScreen(scrMusicScratch);
                 break;
         }
     }

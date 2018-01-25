@@ -23,6 +23,8 @@ public class ScrScratches implements Screen {
     private Sprite sprButtonsBtn;
     private Sprite sprPlayerBtn;
     private Sprite sprRandomBtn;
+    private Sprite sprCollisionBtn;
+    private Sprite sprMusicBtn;
 
     public ScrScratches(GamCosineLine game) {
         this.game = game;
@@ -39,6 +41,12 @@ public class ScrScratches implements Screen {
         
         sprRandomBtn = new Sprite(new Texture("BtnRandomGen.png"));
         sprRandomBtn.setPosition(50, 1200);
+        
+        sprCollisionBtn = new Sprite(new Texture("BtnCollision.png"));
+        sprCollisionBtn.setPosition(50, 1400);
+        
+        sprMusicBtn = new Sprite(new Texture("BtnMusic.png"));
+        sprMusicBtn.setPosition(50, 600);
     }
 
     @Override
@@ -62,6 +70,12 @@ public class ScrScratches implements Screen {
             if (sprRandomBtn.getBoundingRectangle().contains(vInputPos.x, vInputPos.y)) {
                 game.updateState(6);
             }
+            if (sprCollisionBtn.getBoundingRectangle().contains(vInputPos.x, vInputPos.y)) {
+                game.updateState(7);
+            }
+            if (sprMusicBtn.getBoundingRectangle().contains(vInputPos.x, vInputPos.y)) {
+                game.updateState(8);
+            }
         }
     }
 
@@ -77,6 +91,8 @@ public class ScrScratches implements Screen {
         sprButtonsBtn.draw(game.getBatch());
         sprPlayerBtn.draw(game.getBatch());
         sprRandomBtn.draw(game.getBatch());
+        sprCollisionBtn.draw(game.getBatch());
+        sprMusicBtn.draw(game.getBatch());
         game.getBatch().end();
     }
 
